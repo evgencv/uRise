@@ -161,7 +161,7 @@ public class homework5 {
 		
 		for (int i = 0; i < s.length-1; i++) {
 			if(s[i+1]<s[i]){
-				System.out.println("В числе "+a+" каждая цифра  меньше следующей цифры в этом числе.");
+				System.out.println("В числе "+a+" каждая цифра  меньше или равна следующей цифры в этом числе.");
                 return;                     
             }	
 		}
