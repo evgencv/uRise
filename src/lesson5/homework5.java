@@ -18,7 +18,8 @@ public class homework5 {
 	System.out.println("5: Задано четырехцифровое число. Определить, является ли оно палиндромом (читается справа налево и обратно \nодинаково, например, 3993).");
 	System.out.println("6: Задано четырехцифровое число. Определить, являются ли сумма одной половины цифр этого числа равна сумме \nдругой половины цифр.");
 	System.out.println("7: Задано четырехцифровое число. Определить, является ли каждая цифра не меньше следующей цифры в этом числе.");
-	
+	System.out.println("8:  *Задано три числа, которые указывают положения часов, например, 12, 30, 45 означает 12 часов 30 минут 45 секунд. \nОпределить, совпадают ли часовая и минутная стрелки.");
+	System.out.println("9:  *Задано три числа, которые указывают положения часов, например, 12, 30, 45 означает 12 часов 30 минут 45 секунд. \nОпределить, через какое минимальное время совпадут эти стрелки.");
 	System.out.print("\n Ваш выбор?");
 	int numbertest = inw.nextInt();
 	System.out.println("Вы выбрали:  " +numbertest);
@@ -31,6 +32,8 @@ public class homework5 {
      case 5:  gettest5();break;
      case 6:  gettest6();break;
      case 7:  gettest7();break;
+     case 8:  gettest8();break;
+     case 9:  gettest9();break;
      default: 
     	 System.out.println(numbertest+" не корректный ввод. " );
     	 break;
@@ -169,6 +172,82 @@ public class homework5 {
 		
 	}
 	
+	public static void gettest8(){
+		double strelkaChs = 0;
+		double strelkaMin = 0;
+		double strelkaSek = 0;
+		int[] arr = new int[3];
+		arr = inputTime();
+		if (arr[0] > 12) arr[0] -= 12;
+		// перенесем часовую стрелку на шкалу 0-100 (%всего круга) можно и на 0-360(отклонение в град)
+		strelkaChs = (double)arr[0]/12*100+(double)arr[1]/720*100+(double)arr[2]/43200*100;
+		strelkaMin = (double)arr[1]/60*100+(double)arr[2]/3600*100;
+		strelkaSek = (double)arr[2]/60*100;
+		
+		
+		if (strelkaChs == strelkaMin){
+			System.out.println("Минутная и часовая стрелка совпадает");
+		}else{
+			System.out.println("Минутная и часовая стрелка НЕ совпадает на" +(strelkaChs-strelkaMin)*3.6 + " градуса)");
+		}
+	}
+	
+	public static void gettest9(){
+			double strelkaChs = 0;
+			double strelkaMin = 0;
+			double strelkaSek = 0;
+			int[] arr = new int[3];
+			arr = inputTime();
+			int[] arrFin = (int[])arr.clone();
+			
+			if (arr[0] > 12) arr[0]-= 12;
+			
+			do {
+				strelkaChs = (double)arrFin[0]/12*100+(double)arrFin[1]/720*100+(double)arrFin[2]/43200*100;
+				strelkaMin = (double)arrFin[1]/60*100+(double)arrFin[2]/3600*100;
+				strelkaSek = (double)arrFin[2]/60*100;
+				
+				arrFin[2]++;
+				if(arrFin[2]>59){
+					arrFin[2] = 0;
+					arrFin[1]++;
+				}
+				if(arrFin[1]>59){
+					arrFin[1] = 0;
+					arrFin[0]++;
+				}
+				if (arr[0] > 12) arr[0]-= 12;
+							
+			} while ((int)strelkaChs != (int)strelkaMin);
+			System.out.println("Стрелки совпали на "+arrFin[0]+" часе "+arrFin[1]+" минуте "+arrFin[2]+" секунде");
+			int proshloSekundSNulaRes = arrFin[0]*60*60+arrFin[1]*60+arrFin[2];
+			int proshloSekundSNula = arr[0]*3600+arr[1]*60+arr[2];
+			int delta = proshloSekundSNulaRes - proshloSekundSNula;
+			System.out.print("через " +delta+ " секунд");
+			System.out.println("( "+delta/3600+" часов "+(delta%3600)/60+" минут "+(delta%3600)%60+" секунд)");
+			
+		
+		
+	}
+	
+	
+	public static void gettest10(){}
+	
+	public static void gettest11(){}
+	
+	public static void gettest12(){}
+	
+	public static void gettest13(){}
+	
+	public static void gettest14(){}
+	
+	public static void gettest15(){}
+	
+	public static void gettest16(){}
+	
+	public static void gettest17(){}
+	
+	
 	public static  double[] inputString(String outputText, String resultText, int kolvoZnach){
 		/* Вывод сообщения outputText и  ввод с консоли kolvoZnach значений типа double*/ 
 		double[] input = new double[kolvoZnach];
@@ -191,6 +270,34 @@ public class homework5 {
 		for (int i = 0; i < input.length; i++) {
 			System.out.print(" "+input[i]);  
 		}
+		return input;
+		
+	}
+	
+	public static  int[] inputTime(){
+		int[] input = new int[3];
+		String[] text = {"часы (0-23)","минуты (0-59) ","секунды (0-59)"};
+		boolean flag = false;
+		for (int i = 0; i <input.length; i++) {
+			do {
+				System.out.print("Введите "+text[i]);
+				flag = false;
+				try {
+					input[i]  = new Scanner(System.in).nextInt();
+					if (i == 0 && (input[i]>=0 && input[i]<24)) {
+						flag = true;	
+					}
+					if (i != 0 && (input[i]>=0 && input[i]<60)) {
+						flag = true;	
+					}
+					
+				} catch (Exception e) {
+					System.out.print("Ошибка. Повторите ввод. ");
+				}			
+			} while (!flag);
+			
+		}
+		System.out.println("Вы ввели "+input[0]+" часов  " +input[1]+ " минут  " +input[2]+ " секунд");
 		return input;
 		
 	}
