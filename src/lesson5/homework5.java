@@ -41,7 +41,6 @@ public class homework5 {
 	 inw.close(); 
 	}
 	
-	
 	public static void gettest1(){
 		double[] arr = new double[3];
 		arr = inputString("Введите размеры 3х сторон треугольника","Вы ввели стороны:",3);
@@ -51,16 +50,15 @@ public class homework5 {
 			return;
 		}
 		
+		
 		if (hasRightTriangle(arr)) {
 			System.out.println("\nТреугольник прямоугольный");
 		}else{
 			System.out.println("\nТреугольник НЕ прямоугольный");
 		}
-		
-		
 	}
 	
-	public static void gettest2(){   
+	public static void gettest2(){
 		double[] arr = new double[3];
 		arr = inputString("Введите размеры 3х сторон треугольника","Вы ввели стороны:",3);
 		
@@ -75,7 +73,7 @@ public class homework5 {
 			System.out.println("\nТреугольник НЕ равнобедренный");
 		}
 	}
-		
+	
 	public static void gettest3(){
 		double[] arr = new double[6];
 		int kolvoOdinakovihPar = 0;
@@ -111,68 +109,45 @@ public class homework5 {
 	}
 	
 	public static void gettest4(){
-		int suma = 0;
 		int a = input4sybol(); 
+		int sum =0;
 		
-		while(a>0){
-			suma = suma + (a % 10);
-			a/=10;			
-		}
-		System.out.print("Сумма цифр этого числа - "+suma);
-		System.out.println(" она - "+ (suma%2 ==0 ? "четная":"не четная"));
+		sum = summaVsehChisel(a);
+		
+		System.out.print("Сумма цифр этого числа - "+sum);
+		System.out.println(" она - "+ (sum%2 ==0 ? "четная":"не четная"));
 	}
-	
+		
 	public static void gettest5(){
 		int a = input4sybol(); 
-		int b = 0;
-		int temp = a;
 		
-		while(temp>0){
-			b = b*10 + (temp% 10);
-			temp/=10;			
-		}
-		if (b == a) {
-			System.out.println("Это полиндром "+b+" == "+a );
+		if (polindrom(a)) {
+			System.out.println(""+a+ " это полиндром " );
 		}else{
-			System.out.println("Это не полиндром "+b+" != "+a );
+			System.out.println(""+a+ " это не полиндром ");
 		}
 	}
-	
+		
 	public static void gettest6(){
 		int a = input4sybol(); 
-		int temp = a;
-		int[] s = new int[4];
-		for (int i = 0; i < 4; i++) {
-			s[i] = temp%10;
-			temp/=10;
-		}
-		if (s[0]+s[1] == s[2]+s[3]){
+
+		if (summaPolovin(a)){
 			System.out.println("Cумма одной половины цифр числа "+a+" равна сумме другой половины цифр.");
 		}else{
 			System.out.println("Cумма одной половины цифр числа "+a+" НЕ равна сумме другой половины цифр.");
 		}
 	}
-	
-	public static void gettest7(){
+		
+  	public static void gettest7(){
 		int a = input4sybol(); 
-		int temp = a;
-		int[] s = new int[4];
-		for (int i = 0; i < 4; i++) {
-			s[i] = temp%10;
-			temp/=10;
+		if (kajdaiaNeMensheSleduyshei(a)){
+			System.out.println("В числе "+a+" (не каждая/а может, и не одна) цифра  меньше следующей цифры в этом числе.");	
+		}else{
+			System.out.println("В числе "+a+" каждая цифра  меньше или равна следующей цифры в этом числе.");
 		}
-		
-		for (int i = 0; i < s.length-1; i++) {
-			if(s[i+1]<s[i]){
-				System.out.println("В числе "+a+" каждая цифра  меньше или равна следующей цифры в этом числе.");
-                return;                     
-            }	
-		}
-		System.out.println("В числе "+a+" каждая цифра не меньше следующей цифры в этом числе.");
-		
 	}
 	
-	public static void gettest8(){
+  	public static void gettest8(){
 		double strelkaChs = 0;
 		double strelkaMin = 0;
 		double strelkaSek = 0;
@@ -229,8 +204,7 @@ public class homework5 {
 		
 		
 	}
-	
-	
+		
 	public static void gettest10(){}
 	
 	public static void gettest11(){}
@@ -336,4 +310,47 @@ public class homework5 {
 		return result;
 	}
 	
+	public static int summaVsehChisel(int a){
+		int suma = 0;
+		while(a>0){
+			suma = suma + (a % 10);
+			a/=10;
+		}
+		return suma;
+		}
+	
+	public static boolean polindrom(int a){
+		int b = 0;
+		int temp = a;
+		
+		while(temp>0){
+			b = b*10 + (temp% 10);
+			temp/=10;			
+		}
+		return (b == a); 
 	}
+	
+	public static boolean summaPolovin(int a){
+		int temp = a;
+		int[] s = new int[4];
+		for (int i = 0; i < 4; i++) {
+			s[i] = temp%10;
+			temp/=10;
+		}
+		return (s[0]+s[1] == s[2]+s[3]);
+	}
+
+  	public static boolean kajdaiaNeMensheSleduyshei(int a){
+  		int temp = a;
+		int[] s = new int[4];
+		for (int i = 0; i < 4; i++) {
+			s[i] = temp%10;
+			temp/=10;
+		}
+		for (int i = 0; i < s.length-1; i++)if(s[i]<s[i+1])return true; 
+  		return false;
+			
+  	}
+  	
+  	
+}
