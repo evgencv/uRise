@@ -2,10 +2,11 @@ package lesson5;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class homework5 {
-	
+	static HashMap<Integer,Double> factorialArr = new HashMap<Integer,Double>();
 	private static Scanner in;
 	public static void main(String[] arg) throws IOException {
 		
@@ -20,6 +21,18 @@ public class homework5 {
 	System.out.println("7: Задано четырехцифровое число. Определить, является ли каждая цифра не меньше следующей цифры в этом числе.");
 	System.out.println("8:  *Задано три числа, которые указывают положения часов, например, 12, 30, 45 означает 12 часов 30 минут 45 секунд. \nОпределить, совпадают ли часовая и минутная стрелки.");
 	System.out.println("9:  *Задано три числа, которые указывают положения часов, например, 12, 30, 45 означает 12 часов 30 минут 45 секунд. \nОпределить, через какое минимальное время совпадут эти стрелки.");
+	System.out.println("10: Задано число. Посчитать факториал этого числа.");
+	System.out.println("11: Задать число. Посчитать ближайший факториал числа, который находится ближе всего к этому числу. ");
+	System.out.println("12: Задано строку. Написать метод, которое проверяет,  есть ли заданная строка числом (без использования механизма ошибок).");
+	System.out.println("13: Задана строка. Выделить число из строки, если строка является числом (превратить символ в число - Character.getNumericValue()");
+	System.out.println("14: Задано строка. Выделить все цифры из этой строки и соединить в число. ");
+	System.out.println("15: Задан и заполнен массив. Скопировать часть заданного массива в другой.");
+	System.out.println("16: Задано два числа. Найти все числа между заданными, у которых цифры четные. Выполнить это задание через массивы.");
+	System.out.println("17: Задано два числа. Найти все числа между заданными (включая заданные), которые создают арифметическую  прогрессию.");
+	System.out.println("18: Задано натуральное число. Проверить, является ли сумма его максимальной цифры и его минимальной цифры парным числом.");
+	System.out.println("19: Задано число. Полностью удалить из заданного числа максимальную цифру. Проверить, является ли полученное число палиндромом.");
+	System.out.println("20: Написать метод вычисления двоичного представления натурального числа. ");
+	
 	System.out.print("\n Ваш выбор?");
 	int numbertest = inw.nextInt();
 	System.out.println("Вы выбрали:  " +numbertest);
@@ -34,6 +47,13 @@ public class homework5 {
      case 7:  gettest7();break;
      case 8:  gettest8();break;
      case 9:  gettest9();break;
+     case 10:  gettest10();break;
+     case 11:  gettest11();break;
+     case 12:  gettest12();break;
+     case 13:  gettest13();break;
+     case 14:  gettest14();break;
+     case 15:  gettest15();break;
+     
      default: 
     	 System.out.println(numbertest+" не корректный ввод. " );
     	 break;
@@ -51,7 +71,7 @@ public class homework5 {
 		}
 		
 		
-		if (hasRightTriangle(arr)) {
+		if (hasRightTriangle(arr[0],arr[1],arr[2])) {
 			System.out.println("\nТреугольник прямоугольный");
 		}else{
 			System.out.println("\nТреугольник НЕ прямоугольный");
@@ -67,12 +87,13 @@ public class homework5 {
 			return;
 		}
 		
-		if (hasIsoscelesTriangle(arr)) {
+		if (hasIsoscelesTriangle(arr[0],arr[1],arr[2])) {
 			System.out.println("\nТреугольник равнобедренный");
 		}else{
 			System.out.println("\nТреугольник НЕ равнобедренный");
 		}
 	}
+	
 	
 	public static void gettest3(){
 		double[] arr = new double[6];
@@ -84,8 +105,10 @@ public class homework5 {
 			System.out.println("\nТаких треугольников никто не видел");
 			return;
 		}
-				
-		// (Вариант1) все значения в перемешку
+		if (hasIsoscelesTriangle(arr[0],arr[1],arr[2]) & hasIsoscelesTriangle(arr[3],arr[4],arr[5]) ){
+			System.out.println("Тут есть два равносторонних треугольника (Вариант2)");
+		
+		/*// (Вариант1) все значения в перемешку
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = i + 1; j < arr.length; j++) {
 				if (arr[i] == arr[j]){
@@ -98,13 +121,16 @@ public class homework5 {
 			System.out.println("\nТут есть два равносторонних треугольника (Вариант1)");
 		}
 		
+		
 		// (Вариант2) сначала стороны 1 потом 2 треугольника
 		double[] Triangle1 = {arr[0],arr[1],arr[2]};
 		double[] Triangle2 = {arr[3],arr[4],arr[5]};
 		
 		if (hasIsoscelesTriangle(Triangle1) & hasIsoscelesTriangle(Triangle1) ){
 			System.out.println("Тут есть два равносторонних треугольника (Вариант2)");
+		*/
 		}
+		
 		
 	}
 	
@@ -205,11 +231,29 @@ public class homework5 {
 		
 	}
 		
-	public static void gettest10(){}
+	public static void gettest10(){
+		int a = inputInt();
+		System.out.println("Факториал числв "+a +" равен " +faktorial(a));
+		//http://www.luschny.de/math/factorial/index.html
+	}
+		
+	public static void gettest11(){
+		int a = inputInt();
+		System.out.println("Ближайший факториал числа, который находится ближе всего к заданому числу. - "
+				+ "" + faktorial(nearFactorial(a)));
+	}
 	
-	public static void gettest11(){}
+	public static void gettest12(){
+		String inputStr = inputString();
+		System.out.println(inputStr); 
+		if (isNumber(inputStr)){
+			System.out.println("Заданная строка  число");
+		}else{
+			System.out.println("Заданная строка не число");
+		} 
+	}
 	
-	public static void gettest12(){}
+	
 	
 	public static void gettest13(){}
 	
@@ -221,8 +265,13 @@ public class homework5 {
 	
 	public static void gettest17(){}
 	
+	public static void gettest18(){}
 	
-	public static  double[] inputString(String outputText, String resultText, int kolvoZnach){
+	public static void gettest19(){}
+	
+	public static void gettest20(){}
+	
+	public static double[] inputString(String outputText, String resultText, int kolvoZnach){
 		/* Вывод сообщения outputText и  ввод с консоли kolvoZnach значений типа double*/ 
 		double[] input = new double[kolvoZnach];
 		boolean flag = false;
@@ -248,7 +297,7 @@ public class homework5 {
 		
 	}
 	
-	public static  int[] inputTime(){
+	public static int[] inputTime(){
 		int[] input = new int[3];
 		String[] text = {"часы (0-23)","минуты (0-59) ","секунды (0-59)"};
 		boolean flag = false;
@@ -276,24 +325,6 @@ public class homework5 {
 		
 	}
 	
-	public static boolean hasTriangle(double[] st){
-		// если одна из сторон <0 -это не треугольник
-		for (int i = 0; i < st.length; i++) if (st[0]<=0) return false;
-		return true;	
-	}
-	
-	public static boolean hasRightTriangle(double[] st){
-		if (st[0] == Math.sqrt (st[1]*st[1] + st[2]*st[2]) ||
-			st[1] == Math.sqrt (st[0]*st[0] + st[2]*st[2]) ||
-			st[2] == Math.sqrt (st[0]*st[0] + st[1]*st[1])) return true;
-		return false;	
-	}
-	
-	public static boolean hasIsoscelesTriangle(double[] st){
-		if (st[0] == st[1] || st[1] == st[2] ||	st[2] == st[0]) return true;
-		return false;	
-	}
-	
 	public static int input4sybol(){
 		int result =0;
 		boolean flag;
@@ -309,6 +340,57 @@ public class homework5 {
 		} while (!flag);
 		return result;
 	}
+	
+	public static int inputInt(){
+		int result =0;
+		boolean flag;
+		System.out.print("Введите число:");
+		do {
+			flag = false;
+			try {
+				result  = new Scanner(System.in).nextInt();
+				if (result>0) flag = true;
+			} catch (Exception e){
+			}
+			if (!flag) System.out.print("Ошибка.Повторите ввод:");
+		} while (!flag);
+		return result;
+	}
+	
+	public static String inputString(){
+		System.out.print("Введите строку :");
+		return new Scanner(System.in).nextLine();
+	}
+	
+	public static boolean hasTriangle(double[] st){
+		// если одна из сторон <0 -это не треугольник
+		for (int i = 0; i < st.length; i++) if (st[0]<=0) return false;
+		return true;	
+	}
+	
+	public static boolean hasRightTriangle(double[] st){
+		if (st[0] == Math.sqrt (st[1]*st[1] + st[2]*st[2]) ||
+			st[1] == Math.sqrt (st[0]*st[0] + st[2]*st[2]) ||
+			st[2] == Math.sqrt (st[0]*st[0] + st[1]*st[1])) return true;
+		return false;	
+	}
+	
+	public static boolean hasRightTriangle(double st0,double st1, double st2 ){
+		if (st0 == Math.sqrt (st1*st1 + st2*st2) ||
+			st1 == Math.sqrt (st0*st0 + st2*st2) ||
+			st2 == Math.sqrt (st0*st0 + st1*st1)) return true;
+		return false;	
+	}
+	
+	public static boolean hasIsoscelesTriangle(double[] st){
+		if (st[0] == st[1] || st[1] == st[2] ||	st[2] == st[0]) return true;
+		return false;	
+	}
+	public static boolean hasIsoscelesTriangle(double st1,double st2, double st3 ){
+		if (st1 == st2 || st2 == st3||	st3 == st1) return true;
+		return false;	
+	}
+	
 	
 	public static int summaVsehChisel(int a){
 		int suma = 0;
@@ -352,5 +434,41 @@ public class homework5 {
 			
   	}
   	
-  	
+  	public static Double faktorial(int x){
+		Double resultat;
+		
+		if (x <= 0) return 1.0;
+	    resultat = factorialArr.get(x);
+	    if (factorialArr.get(x) != null) return factorialArr.get(x);
+	    resultat = faktorial(x-1)*x;
+	    factorialArr.put(x,resultat);
+	    
+	    System.out.println("factorial("+x+") = "+resultat);
+	    return resultat;
+	}	
+
+  	public static int nearFactorial(int a){
+		boolean flag = false;
+		Double factoricalMin=.0, factoricalMax=.0;
+		Double deltaMin=.0, deltaMax=.0;
+		int result=0;
+		
+		while (!flag) {
+			result++;
+			factoricalMin = faktorial(result);
+			factoricalMax = faktorial(result+1);
+			deltaMin = a - factoricalMin;
+			deltaMax = factoricalMax - a;
+			if (factoricalMin.compareTo((double)a) <= 0 && factoricalMax.compareTo((double)a) >= 0) flag=true;
+		}
+
+		return (deltaMin>=deltaMax? result+1:result) ;
+	
+	}
+	
+  	private static boolean isNumber(String str) {
+        for (char c: str.toCharArray()) if (!Character.isDigit(c)) return false;
+        return true;
+    }
+
 }
