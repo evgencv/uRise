@@ -105,7 +105,7 @@ public class homework5 {
 			System.out.println("\nТаких треугольников никто не видел");
 			return;
 		}
-		if (hasIsoscelesTriangle(arr[0],arr[1],arr[2]) & hasIsoscelesTriangle(arr[3],arr[4],arr[5]) ){
+		if (hasIsosceles2Triangle(arr[0],arr[1],arr[2],arr[3],arr[4],arr[5]) ){
 			System.out.println("Тут есть два равносторонних треугольника (Вариант2)");
 		
 		/*// (Вариант1) все значения в перемешку
@@ -130,8 +130,10 @@ public class homework5 {
 			System.out.println("Тут есть два равносторонних треугольника (Вариант2)");
 		*/
 		}
+	}
+	public static boolean hasIsosceles2Triangle(double arr0,double arr1, double arr2,double arr3,double arr4, double arr5  ){
 		
-		
+		return (hasIsoscelesTriangle(arr0,arr1,arr2) & hasIsoscelesTriangle(arr3,arr4,arr5));
 	}
 	
 	public static void gettest4(){
